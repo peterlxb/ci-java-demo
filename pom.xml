@@ -52,7 +52,11 @@
         </dependency>
     </dependencies>
          
-    <repository>
+         
+         
+         
+    <repositories>
+         <repository>
         <id>cc</id>
         <url>https://pkgs.dev.azure.com/lapulasLiu/Java-demo-project/_packaging/cc/maven/v1</url>
         <releases>
@@ -62,7 +66,22 @@
     <enabled>true</enabled>
   </snapshots>
 </repository>
+         
+    </repositories>
+    
 
+  <distributionManagement>
+   <repository>
+        <id>cc</id>
+        <url>https://pkgs.dev.azure.com/lapulasLiu/Java-demo-project/_packaging/cc/maven/v1</url>
+        <releases>
+        <enabled>true</enabled>
+   </releases>
+  <snapshots>
+    <enabled>true</enabled>
+  </snapshots>
+</repository>
+</distributionManagement>
 
 
     <build>
