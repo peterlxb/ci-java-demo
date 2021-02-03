@@ -27,6 +27,7 @@ steps:
       # Write your commands here
       
       echo 'Hello world'
+      ls
       sleep 50s
       echo "End ===="
   
