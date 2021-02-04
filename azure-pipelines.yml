@@ -30,4 +30,7 @@ steps:
       ls
       sleep 50s
       echo "End ===="
-  
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
