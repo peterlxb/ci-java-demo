@@ -9,33 +9,304 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      
-      echo 'Hello world'
-      ls
-      sleep 50s
-      echo "End ===="
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'test-artifacts'
-    publishLocation: 'pipeline'
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+stages:
+- stage: Init
+  jobs:
+  - job: InitializationJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: PublishTestResults@2
+      inputs:
+       testResultsFormat: 'JUnit'
+       testResultsFiles: '**/TEST-*.xml'
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+- stage: stageB
+  jobs:
+  - job: BuildStageBCIJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'springInAction/spring-demo/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+  - job: BuildStageBJob2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+- stage: BuildJava1
+  jobs:
+  - job: BuildCIJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'springInAction/spring-demo/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+  - job: BuildStageCJob2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+- stage: BuildJava2
+  jobs:
+  - job: BuildStageDJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'springInAction/spring-demo/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+  - job: BuildStageDJob2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+  - job: BuildStageDJob3
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+- stage: BuildJava3
+  jobs:
+  - job: BuildStageDJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'springInAction/spring-demo/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+  - job: BuildStageDJob2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+  - job: BuildStageDJob3
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end  
+- stage: BuildJava4
+  jobs:
+  - job: BuildStageDJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'springInAction/spring-demo/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+  - job: BuildStageDJob2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+  - job: BuildStageDJob3
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+- stage: BuildJava5
+  jobs:
+  - job: BuildStageDJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'springInAction/spring-demo/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+  - job: BuildStageDJob2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+  - job: BuildStageDJob3
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+- stage: FinalStage
+  jobs:
+  - job: BuildStageEJob
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'springInAction/spring-demo/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+  - job: BuildStageEJob2
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+  - job: BuildStageEJob3
+    timeoutInMinutes: 10
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: CmdLine@2
+      inputs:
+       script: |
+        sleep 30s
+        echo Hello world
+        ls 
+        netstat -tulnp
+        echo running end
+
